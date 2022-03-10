@@ -29,7 +29,25 @@
 								<button type="button" class="btn btn-block btn-primary">Add Employee</button>
 							</a>
 							</div>
+
               </div>
+              <div class="card-body">
+        <div class="row">
+          
+          <div class="col-md-3 mb-3">
+            <label for="validationCustomUsername" class="col-form-label">Employee Name</label>
+            <div class="dataTables_filter input-group">
+              <input id="sSearch_0" name="sSearch_0" type="text" class="searchInput form-control" placeholder="Name" aria-describedby="inputGroupPrepend" >
+              
+            </div>
+          </div>
+          
+          <div class="col-md-2 col-12 txt-lr">
+            <label style="visibility: hidden;" class="mt-1">For Space</label>
+            <a href="<?php echo base_url();?>employee"><button class="btn cnl-btn btn-primary">Clear Search</button></a>
+          </div>
+        </div>
+      </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table class="dynamicTable table table-bordered non-bootstrap display pt-3 pb-3">
