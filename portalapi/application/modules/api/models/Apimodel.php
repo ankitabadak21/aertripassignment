@@ -484,26 +484,7 @@ class Apimodel extends CI_Model
 		}
 	}
 	
-	function getCreditorFormData($ID)
-	{	
-		$this -> db -> select('i.*');
-		$this -> db -> from('master_ceditors as i');
-		$this -> db -> where('i.creditor_id', $ID);
 	
-		$query = $this -> db -> get();
-	   
-		//print_r($this->db->last_query());
-		//exit;
-	   
-		if($query -> num_rows() >= 1)
-		{
-			return $query->result();
-		}
-		else
-		{
-			return false;
-		}	
-	}
 	
 	function getLoginUserDetails($ID)
 	{	
