@@ -444,7 +444,10 @@ class Api extends CI_Controller
 		if (!empty($checkToken->username)) {
 			$data = array();
 			$data['isactive'] = 0;
-			$result = $this->apimodel->updateRecord('tbl_employee', $data, "emp_id='" . $_POST['id'] . "' ");
+			//$result = $this->apimodel->updateRecord('tbl_employee', $data, "emp_id='" . $_POST['id'] . "' ");
+			$result = $this->apimodel->delrecord('tbl_employee',"emp_id",$_POST['id']);
+			$result = $this->apimodel->delrecord('tbl_employee_contacts',"emp_id",$_POST['id']);
+			$result = $this->apimodel->delrecord('tbl_employee_address',"emp_id",$_POST['id']);
 			if (!empty($result)) {
 				echo json_encode(array("status_code" => "200", "Metadata" => array("Message" => 'Record created/updated successfully.'), "Data" => $result));
 				exit;
