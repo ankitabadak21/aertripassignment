@@ -30,7 +30,7 @@ define('ABSOLUTE_DOC_ROOT',$_SERVER['DOCUMENT_ROOT']);
 define('DOC_ROOT', ABSOLUTE_DOC_ROOT.'');
 define('DOC_ROOT_FRONT', ABSOLUTE_DOC_ROOT.'');
 define('FRONT_URL',  'http://aertrip.local.com/');
-define('SERVICE_URL',  'http://aertripapi.local.com/');
+define('SERVICE_URL',  'http://aertripapi.local.com');
 define('PROTOCOL', 'http');
 
 /*
@@ -43,7 +43,7 @@ define('PROTOCOL', 'http');
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
