@@ -41,7 +41,7 @@ $last_login = date("d-m-Y H:i:s A", strtotime($luserDetails['Data']['user_data']
       </li>
       
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Logout</a>
+        <a href="<?php echo base_url("home/logout");?>" class="nav-link">Logout</a>
       </li>
     </ul>
 

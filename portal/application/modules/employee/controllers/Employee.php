@@ -93,8 +93,10 @@ class Employee extends CI_Controller
 			$data['id'] = $record_id;
 			$checkDetails = curlFunction(SERVICE_URL.'/api/getEmployeeFormData',$data);
 			$checkDetails = json_decode($checkDetails, true);
-			// echo "<pre>";print_r($checkDetails);exit;
-			$result['getDetails'] = $checkDetails['Data'];
+			//echo "<pre>";print_r($checkDetails);exit;
+			$result['getDetails'] = $checkDetails['Data']['emp_details'];
+			$result['contactDetails'] = $checkDetails['Data']['contact_details'];
+			$result['addressDetails'] = $checkDetails['Data']['address_details'];
 			
 		}else{
 			$result['getDetails'] = array();

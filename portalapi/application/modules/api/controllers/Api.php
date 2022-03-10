@@ -887,7 +887,9 @@ class Api extends CI_Controller
 			}else{
 				$condition = "isactive='1' ";
 			}
-			$get_result = $this->apimodel->getSortedData("*", "tbl_employee", $condition, "emp_id", "asc");
+			$get_result['emp_details'] = $this->apimodel->getSortedData("*", "tbl_employee", $condition, "emp_id", "asc");
+			$get_result['contact_details'] = $this->apimodel->getSortedData("*", "tbl_employee_contacts", "emp_id='".$_POST['id']."'", "id", "asc");
+			$get_result['address_details'] = $this->apimodel->getSortedData("*", "tbl_employee_address", "emp_id='".$_POST['id']."' ", "id", "asc");
 			//echo "<pre>";print_r($get_result);exit;
 			if (!empty($get_result)) {
 				echo json_encode(array("status_code" => "200", "Metadata" => array("Message" => 'Success'), "Data" => $get_result));
@@ -3224,6 +3226,31 @@ class Api extends CI_Controller
 
 			if (!empty($_POST['emp_id'])) {
 				$result = $this->apimodel->updateRecord('tbl_employee', $data, "emp_id='" . $_POST['emp_id'] . "' ");
+				if(isset($_POST['phone_no'])){
+					$this->db->where('emp_id', $_POST['emp_id']); 
+					$this->db->delete('tbl_employee_contacts'); 
+					foreach ($_POST['phone_no'] as $key => $value) {
+						if($value != ''){
+							$d['emp_id'] = $_POST['emp_id'];
+							$d['contact_no'] = $value;
+							$result = $this->apimodel->insertData('tbl_employee_contacts', $d, 1);
+						}
+						
+					}
+				}
+				if(isset($_POST['address'])){
+					$this->db->where('emp_id', $_POST['emp_id']); 
+					$this->db->delete('tbl_employee_address'); 
+					foreach ($_POST['address'] as $key => $value) {
+						if($value != ''){
+							$d1['emp_id'] = $_POST['emp_id'];
+							$d1['address'] = $value;
+							$result = $this->apimodel->insertData('tbl_employee_address', $d1, 1);
+							// echo $this->db->last_query();exit;
+						}
+						
+					}
+				}
 			} else {
 				$data['created_date'] = date("Y-m-d H:i:s");
 				$result = $this->apimodel->insertData('tbl_employee', $data, 1);

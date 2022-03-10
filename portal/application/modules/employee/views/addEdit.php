@@ -49,18 +49,13 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Employee Name</label>
-                    <input type="text" name="employee_name" class="form-control" id="employee_name" value="<?php echo (isset($getDetails[0]['employee_name'])) ?? "";?>" placeholder="Employee Name">
+                    <input type="text" name="employee_name" class="form-control" id="employee_name" value="<?php echo (isset($getDetails[0]['employee_name'])) ? $getDetails[0]['employee_name'] : "";?>" placeholder="Employee Name">
                   </div>
-
+                  <?php if(!isset($contactDetails)){?>
                    <div class="form-group control-group after-add-more-phone">
                     <label for="exampleInputPassword1">Phone Number</label>
                     <input type="text" name="phone_no[]" class="form-control" value="<?php echo (isset($getDetails[0]['phone_no'])) ?? "";?>" placeholder="Phone No">
                   </div>
-                  <div class="input-group-btn"> 
-		            <button class="btn btn-success add-more-phone" type="button"><i class="glyphicon glyphicon-plus"></i> Add More Phone NO.</button>
-		          </div>
-                  
-
                   <div class="form-group copy-phone hide" style="display:none;">
                   	 <div class="control-group input-group" style="margin-top:10px">
 			          <label for="exampleInputPassword1">Phone Number</label>
@@ -70,13 +65,60 @@
 			            </div>
 			            </div>
 			          
-			        </div>     
+			        </div> 
+                  <?php }else{ ?>
+                  	<div class="form-group control-group after-add-more-phone" style="display:none;">
+	                    <label for="exampleInputPassword1">Phone Number</label>
+	                    <input type="text" name="phone_no[]" class="form-control" value="" placeholder="Phone No">
+	                  </div>
+                  	<?php
+                  	$i = 1;
+                  	foreach($contactDetails as $key => $value){ ?>
 
+                  <div class="form-group copy-phone hide" >
+                  	 <div class="control-group input-group" style="margin-top:10px">
+			          <label for="exampleInputPassword1">Phone Number</label>
+			            <input type="text" name="phone_no[]" class="form-control" value="<?php echo $value['contact_no'] ;?>" placeholder="Phone No">
+			            <?php //if($i != 1){?>
+			            <div class="input-group-btn"> 
+			              <button class="btn btn-danger remove-phone" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+			            </div>
+			            <?php //}?>
+			            </div>
+			          
+			        </div> 
+                  <?php $i++; }
+                  } ?> 
+                  <div class="input-group-btn"> 
+		            <button class="btn btn-success add-more-phone" type="button"><i class="glyphicon glyphicon-plus"></i> Add More Phone NO.</button>
+		          </div>
+                  
 
+                      
+
+			        <?php if(!isset($addressDetails)){?>
                   <div class="form-group control-group after-add-more-address">
                     <label for="exampleInputPassword1">Address</label>
                     <input type="text" name="address[]" class="form-control" value="<?php echo (isset($getDetails[0]['address'])) ?? "";?>" placeholder="Address">
                   </div>
+                  <?php }else{ 
+                  	//print_r($contactDetails);exit;
+                  	$j = 1;
+                  	foreach($addressDetails as $key => $value){?>
+                  	<div class="form-group copy-address hide">
+                  	 <div class="control-group input-group" style="margin-top:10px">
+			          <label for="exampleInputPassword1">Address</label>
+			            <input type="text" name="address[]" class="form-control" value="<?php echo $value['address']; ?>" placeholder="Address">
+			            <?php if($j != 1){?>
+			            <div class="input-group-btn"> 
+			              <button class="btn btn-danger remove-address" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
+			            </div>
+			            <?php } ?>
+			            </div>
+			          
+			        </div> 
+                  	<?php $j++; }
+                  } ?> 
                   <div class="input-group-btn"> 
 		            <button class="btn btn-success add-more-address" type="button"><i class="glyphicon glyphicon-plus"></i> Add More Addess</button>
 		          </div>
@@ -97,7 +139,7 @@
 
                  
                 </div>
-                <input type="hidden" name="emp_id" value="<?php echo (isset($getDetails[0]['emp_id'])) ?? "";?>" id="emp_id">
+                <input type="hidden" name="emp_id" value="<?php echo (isset($getDetails[0]['emp_id'])) ? $getDetails[0]['emp_id'] : "";?>" id="emp_id">
                 <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-primary">Submit</button>
@@ -186,7 +228,7 @@ $("#quickForm").validate({
 	messages: vMessages,
 	submitHandler: function(form) 
 	{
-		debugger;
+		// debugger;
 		var act = "<?php echo base_url();?>employee/submitForm";
 		$("#quickForm").ajaxSubmit({
 			url: act, 
@@ -200,7 +242,7 @@ $("#quickForm").validate({
 			},
 			success: function (response) 
 			{
-				debugger;
+				// debugger;
 				$(".btn-primary").show();
 				if(response.success)
 				{
