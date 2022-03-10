@@ -431,7 +431,7 @@ class Apimodel extends CI_Model
 		$table_id = 'emp_id ';
 		$default_sort_column = 'emp_id ';
 		$default_sort_order = 'desc';
-		$condition = "i.department_id=d.id";
+		$condition = "i.department_id=d.id AND i.isactive=1";
 		
 		$colArray = array('i.employee_name');
 		$sortArray = array('i.employee_name','i.department_id');

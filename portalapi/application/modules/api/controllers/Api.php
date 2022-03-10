@@ -436,7 +436,7 @@ class Api extends CI_Controller
 	}
 
 	//Delete creditor
-	function delCreditor()
+	function delEmployee()
 	{
 		//echo "<pre>post";print_r($_POST);exit;
 		$checkToken = $this->verify_request($_POST['utoken']);
@@ -444,7 +444,7 @@ class Api extends CI_Controller
 		if (!empty($checkToken->username)) {
 			$data = array();
 			$data['isactive'] = 0;
-			$result = $this->apimodel->updateRecord('master_ceditors', $data, "creditor_id='" . $_POST['id'] . "' ");
+			$result = $this->apimodel->updateRecord('tbl_employee', $data, "emp_id='" . $_POST['id'] . "' ");
 			if (!empty($result)) {
 				echo json_encode(array("status_code" => "200", "Metadata" => array("Message" => 'Record created/updated successfully.'), "Data" => $result));
 				exit;
@@ -882,8 +882,8 @@ class Api extends CI_Controller
 		$checkToken = $this->verify_request($_POST['utoken']);
 
 		if (!empty($checkToken->username)) {
-			if(!empty($_POST['cid'])){
-				$condition = "isactive='1' && emp_id='".$_POST['emp_id']."' ";
+			if(!empty($_POST['id'])){
+				$condition = "isactive='1' && emp_id='".$_POST['id']."' ";
 			}else{
 				$condition = "isactive='1' ";
 			}
@@ -3227,6 +3227,29 @@ class Api extends CI_Controller
 			} else {
 				$data['created_date'] = date("Y-m-d H:i:s");
 				$result = $this->apimodel->insertData('tbl_employee', $data, 1);
+				$emp_id = $this->db->insert_id();
+				if(isset($_POST['phone_no'])){
+					foreach ($_POST['phone_no'] as $key => $value) {
+						if($value != ''){
+							$d['emp_id'] = $emp_id;
+							$d['contact_no'] = $value;
+							$result = $this->apimodel->insertData('tbl_employee_contacts', $d, 1);
+						}
+						
+					}
+				}
+				if(isset($_POST['address'])){
+					// echo "hiii";
+					foreach ($_POST['address'] as $key => $value) {
+						if($value != ''){
+							$d1['emp_id'] = $emp_id;
+							$d1['address'] = $value;
+							$result = $this->apimodel->insertData('tbl_employee_address', $d1, 1);
+							// echo $this->db->last_query();exit;
+						}
+						
+					}
+				}
 			}
 
 			//echo "<pre>";print_r($result);exit;

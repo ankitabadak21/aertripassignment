@@ -86,7 +86,7 @@ function deleteData(id)
 	if (r==true)
 	{
 		$.ajax({
-			url: "<?php echo base_url().$this->router->fetch_module();?>/creditors/delRecord/"+id,
+			url: "<?php echo base_url().$this->router->fetch_module();?>/employee/delRecord/"+id,
 			async: false,
 			type: "POST",
 			success: function(data2){

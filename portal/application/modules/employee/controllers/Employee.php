@@ -93,7 +93,7 @@ class Employee extends CI_Controller
 			$data['id'] = $record_id;
 			$checkDetails = curlFunction(SERVICE_URL.'/api/getEmployeeFormData',$data);
 			$checkDetails = json_decode($checkDetails, true);
-			echo "<pre>";print_r($checkDetails);exit;
+			// echo "<pre>";print_r($checkDetails);exit;
 			$result['getDetails'] = $checkDetails['Data'];
 			
 		}else{
@@ -104,7 +104,7 @@ class Employee extends CI_Controller
 
 		$data = json_decode(curlFunction(SERVICE_URL.'/api/getDepartmentDetails',$data),TRUE);
 		$result['department_details'] = $data['Data'];
-		//echo "<PRE>";print_r($data);exit;
+		// echo "<PRE>";print_r($result);exit;
 		//echo $user_id;
 		$this->load->view('template/header.php');
 		$this->load->view('employee/addEdit',$result);
@@ -140,6 +140,8 @@ class Employee extends CI_Controller
 			$data['emp_id'] = (!empty($_POST['emp_id'])) ? $_POST['emp_id'] : '';
 			$data['department_id'] = (!empty($_POST['department_id'])) ? $_POST['department_id'] : '';
 			$data['employee_name'] = (!empty($_POST['employee_name'])) ? $_POST['employee_name'] : '';
+			$data['phone_no'] = (!empty($_POST['phone_no'])) ? $_POST['phone_no'] : '';
+			$data['address'] = (!empty($_POST['address'])) ? $_POST['address'] : '';
 			
 			$addEdit = curlFunction(SERVICE_URL.'/api/addEditEmployee',$data);
 			// echo "<pre>";print_r($addEdit);exit;
@@ -167,7 +169,7 @@ class Employee extends CI_Controller
 		$data = array();
 		$data['id'] = $id;
 		$data['utoken'] = $_SESSION['webpanel']['utoken'];
-		$delRecord = curlFunction(SERVICE_URL.'/api/delCreditor',$data);
+		$delRecord = curlFunction(SERVICE_URL.'/api/delEmployee',$data);
 		//echo "<pre>";print_r($checkDetails);exit;
 		$delRecord = json_decode($delRecord, true);
 		 
