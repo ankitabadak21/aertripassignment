@@ -65,7 +65,7 @@ $last_login = date("d-m-Y H:i:s A", strtotime($luserDetails['Data']['user_data']
           <img src="<?php echo base_url();?>resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Admin</a>
         </div>
       </div>
 
