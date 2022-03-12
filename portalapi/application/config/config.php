@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['index_page'] = '';
-
+$config['jwt_key'] = 'my_secret';
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL
